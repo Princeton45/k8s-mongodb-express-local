@@ -1,0 +1,39 @@
+flowchart TD
+    subgraph KC["Kubernetes Cluster"]
+        subgraph MD["MongoDB Deployment"]
+            A[MongoDB Pod]
+            B[(Persistent Storage)]
+            C[ConfigMap]
+            D[Secret]
+            A --> B
+            C --> A
+            D --> A
+        end
+        
+        subgraph ME["Mongo Express Deployment"]
+            E[Mongo Express Pod]
+            F[MongoDB Service]
+            F --> A
+            E --> F
+        end
+        
+        G[Mongo Express Service]
+        H[External Access]
+        G --> E
+        H --> G
+    end
+
+    classDef mongodb fill:#f9d,stroke:#333
+    classDef mongoexpress fill:#9df,stroke:#333
+    classDef storage fill:#dfd,stroke:#333
+    classDef config fill:#ffd,stroke:#333
+    classDef secret fill:#ff9,stroke:#333
+    classDef service fill:#ddd,stroke:#333
+
+    class A mongodb
+    class E mongoexpress
+    class B storage
+    class C config
+    class D secret
+    class F,G service
+    
